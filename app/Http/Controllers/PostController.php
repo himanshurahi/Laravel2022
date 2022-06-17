@@ -2,31 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
-    public $posts = [
-        1 => [
-            'id' => 1,
-            'title' => 'Post 1',
-            'body' => 'This is post 1',
-            'is_new' => true,
-            'has_comments' => true,
-        ],
-        2 => [
-            'id' => 2,
-            'title' => 'Post 2',
-            'body' => 'This is post 2',
-            'is_new' => false,
-        ],
-        3 => [
-            'id' => 3,
-            'title' => 'Post 3',
-            'body' => 'This is post 3',
-            'is_new' => true,
-        ],
-    ];
+    
     /**
      * Display a listing of the resource.
      *
@@ -35,7 +16,7 @@ class PostController extends Controller
     public function index()
     {
         return view('posts.index', [
-            'posts' => $this->posts,
+            'posts' => Post::orderBy('created_at', 'desc')->get(),
         ]);
     }
 
