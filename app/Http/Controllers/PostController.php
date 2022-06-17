@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePost;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -27,7 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view("posts.create");
     }
 
     /**
@@ -36,9 +37,18 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePost $request)
     {
-        //
+        // $post = new Post();
+        // $post->title = $request->input('title');
+        // $post->body = $request->input('body');
+        // $post->save();
+        Post::create([
+            "title" => $request->input('title'),
+            "body" => $request->input('body'),
+        ]);
+        $request->session()->flash('message', 'Post created successfully!');
+        return redirect()->route('posts.index');
     }
 
     /**
