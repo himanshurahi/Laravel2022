@@ -14,5 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return "Home Page";
+})->name('home.index');
+
+Route::get("/posts/{id}", function ($id) {
+    return "Post ID is: ".$id;
+})->name('posts.index');
+
+Route::get("/recent-posts/{days_ago?}", function ($days_ago = 10) {
+    return "Days Ago: ".$days_ago;
+})->name('recent.index');
