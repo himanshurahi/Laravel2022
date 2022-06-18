@@ -17,8 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $post = Post::withCount('user')->get();
-        return $post;
+       $user = User::find(1);
+       return $user->posts;
         return view('posts.index', [
             'posts' => Post::orderBy('created_at', 'desc')->get(),
         ]);
