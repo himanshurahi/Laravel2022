@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePost;
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -16,6 +17,8 @@ class PostController extends Controller
      */
     public function index()
     {
+        $post = Post::withCount('user')->get();
+        return $post;
         return view('posts.index', [
             'posts' => Post::orderBy('created_at', 'desc')->get(),
         ]);
