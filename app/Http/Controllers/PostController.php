@@ -70,7 +70,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::findOrFail($id);
+       return view('posts.edit', compact('post'));
     }
 
     /**
@@ -80,9 +81,14 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StorePost $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->save();
+        $request->session()->flash('message', 'Post updated successfully!');
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -93,6 +99,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+        session()->flash('message', 'Post deleted successfully!');
+        return redirect()->route('posts.index');
     }
 }
