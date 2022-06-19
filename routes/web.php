@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -79,3 +80,6 @@ Route::get("/recent-posts/{days_ago?}", function ($days_ago = 10) {
 //         return response()->download(public_path('index.php'));
 //     });
 // });
+
+Auth::routes();
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
